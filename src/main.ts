@@ -806,7 +806,7 @@ function addLed(output: number) {
   addLabel(`Y=${output}`, 5.12, 1.05, output ? "#74e1d1" : "#9fb4c8", 1.62, 1.55);
 }
 
-function addPowerFeed(inputZs: number[], chipX: number) {
+function addPowerFeed(inputZs: number[]) {
   const junctionX = -4.32;
   addCircuitNode(junctionX, 0, true);
   addWire([[-4.58, 0.52, 0], [junctionX, 0.52, 0]], true, 0.04);
@@ -815,9 +815,6 @@ function addPowerFeed(inputZs: number[], chipX: number) {
     addCircuitNode(junctionX, z, true);
     addWire([[junctionX, 0.52, 0], [junctionX, 0.52, z], [-3.84, 0.52, z]], true, 0.04);
   });
-
-  addCircuitNode(chipX - 0.2, -0.82, true);
-  addWire([[junctionX, 0.52, 0], [chipX - 0.2, 0.52, -0.82]], true, 0.034);
 }
 
 function addCommonReturn(inputZs: number[], chipX: number) {
@@ -880,7 +877,7 @@ function buildBoardDetails() {
 function buildNot(a: number) {
   currentOutput = gates.NOT.evaluate(a);
   addPowerSource(true);
-  addPowerFeed([-1.1], 0.92);
+  addPowerFeed([-1.1]);
   addInputSource("A", -3.2, -1.1, Boolean(a));
   addWire([[-2.64, 0.52, -1.1], [-1.22, 0.52, -1.1], [-0.5, 0.52, 0]], Boolean(a));
   addLogicModule("NOT", 0.92, 0, Boolean(currentOutput), [a]);
@@ -892,7 +889,7 @@ function buildNot(a: number) {
 function buildAnd(a: number, b: number) {
   currentOutput = gates.AND.evaluate(a, b);
   addPowerSource();
-  addPowerFeed([-1.35, 1.35], 1.05);
+  addPowerFeed([-1.35, 1.35]);
   addInputSource("A", -3.28, -1.35, Boolean(a));
   addInputSource("B", -3.28, 1.35, Boolean(b));
   addWire([[-2.72, 0.52, -1.35], [-1.1, 0.52, -1.35], [-0.37, 0.52, -0.46]], Boolean(a));
@@ -905,7 +902,7 @@ function buildAnd(a: number, b: number) {
 function buildOr(a: number, b: number) {
   currentOutput = gates.OR.evaluate(a, b);
   addPowerSource();
-  addPowerFeed([-1.35, 1.35], 1.05);
+  addPowerFeed([-1.35, 1.35]);
   addInputSource("A", -3.28, -1.35, Boolean(a));
   addInputSource("B", -3.28, 1.35, Boolean(b));
   addWire([[-2.72, 0.52, -1.35], [-1.1, 0.52, -1.35], [-0.37, 0.52, -0.46]], Boolean(a));
